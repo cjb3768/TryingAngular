@@ -1,0 +1,11 @@
+<div>
+  Strength: <input type="number" [formControl]="str" min=0 max=28>
+  Dexterity: <input type="number" [formControl]="dex" min=0 max=28>
+  Constitution: <input type="number" [formControl]="con" min=0 max=28>
+  Intelligence: <input type="number" [formControl]="int" min=0 max=28>
+  Wisdom: <input type="number" [formControl]="wis" min=0 max=28>
+  Charisma: <input type="number" [formControl]="cha" min=0 max=28>
+</div>
+<div>
+  Strength Modifier = {{calculateModifier(str.value)}} = {{calculateModifier(ability_array.str)}}
+</div>
