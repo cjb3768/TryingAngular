@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 
-export class AbilityArray {
+export class AbilityScoreArray {
   str: number;
   dex: number;
   con: number;
