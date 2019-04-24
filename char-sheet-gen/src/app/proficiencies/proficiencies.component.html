@@ -1,0 +1,49 @@
+<h2>Proficiencies and Expertises</h2>
+<h4>Note: Expertises in Bold</h4>
+
+<ul>
+  <li *ngFor="let profType of proficienciesService.proficiencies | keyvalue">
+    {{profType.key}}
+    <ul>
+      <li *ngFor="let prof of profType.value">
+        <div *ngIf="proficienciesService.hasExpertise(profType.key,prof); then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>
+          <b>{{prof}}</b>
+        </ng-template>
+        <ng-template #elseBlock>
+          {{prof}}
+        </ng-template>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3>Add a Proficiency</h3>
+<div>
+
+  Type:
+  <select [formControl]="proficiencyType">
+    <option *ngFor="let type of proficienciesService.proficiencies | keyvalue" [value]="type.key">
+      {{type.key}}
+    </option>
+  </select>
+
+  Proficiency:
+  <input type="string" [formControl]="proficiencyName">
+  <button (click)="addProficiency()">Add Proficiency</button>
+</div>
+
+<h3>Add an Expertise</h3>
+<div>
+  Type:
+
+  <select [formControl]="expertiseType">
+    <option *ngFor="let type of proficienciesService.expertises | keyvalue" [value]="type.key">
+      {{type.key}}
+    </option>
+  </select>
+
+  Expertise:
+  <input type="string" [formControl]="expertiseName">
+  <button (click)="addExpertise()">Add Expertise</button>
+</div>

@@ -24,7 +24,7 @@ export class AbilityScoresComponent implements OnInit {
   ngOnInit() {
   }
 
-  updateModifier(adjustedScore:string, control: FormControl) {
+  updateScore(adjustedScore:string, control: FormControl) {
     this.abilityScoresService.updateScore(adjustedScore, control.value);
   }
 
