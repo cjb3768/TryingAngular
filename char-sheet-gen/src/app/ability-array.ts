@@ -1,5 +1,3 @@
-import { FormControl } from '@angular/forms';
-
 export class AbilityScoreArray {
   str: number;
   dex: number;
