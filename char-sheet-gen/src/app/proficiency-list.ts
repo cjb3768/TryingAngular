@@ -1,13 +1,13 @@
 export class ProficiencyList{
-  savingThrows: [];
-  skills: [];
-  weapons: [];
-  armor: [];
-  tools: [];
-  languages: [];
+  savingThrows: string[];
+  skills: string[];
+  weapons: string[];
+  armor: string[];
+  tools: string[];
+  languages: string[];
 }
 
 export class ExpertiseList{
-  skills: [];
-  tools: [];
+  skills: string[];
+  tools: string[];
 }

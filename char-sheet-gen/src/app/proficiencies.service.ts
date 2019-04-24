@@ -7,7 +7,14 @@ import { ProficiencyList, ExpertiseList } from "./proficiency-list";
 })
 export class ProficienciesService {
 
-  proficiencies: ProficiencyList;
+  proficiencies: ProficiencyList = {
+    savingThrows: ['wis'],
+    skills: ['perception'],
+    weapons: ['simple'],
+    armor: ['light'],
+    tools: ['thieve\'s tools','lute'],
+    languages: ['common','elven']
+  };
 
   expertises: ExpertiseList;
 
@@ -64,10 +71,10 @@ export class ProficienciesService {
   calculateProficiencyBonus(proficiencyType:string, proficiencyName: string): number{
     if (this.hasProficiency(proficiencyType, proficiencyName)){
       if (this.hasExpertise(proficiencyType, proficiencyName)){
-        return baseProficiency * 2;
+        return this.baseProficiency * 2;
       }
       else{
-        return baseProficiency;
+        return this.baseProficiency;
       }
     }
     return 0;

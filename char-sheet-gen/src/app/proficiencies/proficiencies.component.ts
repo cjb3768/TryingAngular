@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ProficienciesService } from '../proficiencies.service';
+import { ProficiencyList, ExpertiseList } from "../proficiency-list";
+
 @Component({
   selector: 'app-proficiencies',
   templateUrl: './proficiencies.component.html',
@@ -7,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProficienciesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private proficienciesService: ProficienciesService) { }
 
   ngOnInit() {
   }
