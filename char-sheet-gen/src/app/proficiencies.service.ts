@@ -7,11 +7,21 @@ import { ProficiencyList, ExpertiseList } from "./proficiency-list";
 })
 export class ProficienciesService {
 
-  proficiencies: ProficiencyList = {};
+  proficiencies: ProficiencyList;
 
-  expertises: ExpertiseList = {};
+  expertises: ExpertiseList;
+
+  baseProficiency = 2;
 
   constructor() { }
+
+  hasProficiency(proficiencyType: string, proficiencyName: string): boolean{
+    return (this.proficiencies.hasOwnProperty(proficiencyType) && this.proficiencies[proficiencyType].indexOf(proficiencyName));
+  }
+
+  hasExpertise(expertiseType: string, expertiseName: string): boolean{
+    return (this.expertises.hasOwnProperty(expertiseType) && this.expertises[expertiseType].indexOf(expertiseName));
+  }
 
   addProficiency(proficiencyType: string, proficiencyName: string){
     //verify that the proficiency we want to add is valid
@@ -51,5 +61,16 @@ export class ProficienciesService {
     }
   }
 
-  
+  calculateProficiencyBonus(proficiencyType:string, proficiencyName: string): number{
+    if (this.hasProficiency(proficiencyType, proficiencyName)){
+      if (this.hasExpertise(proficiencyType, proficiencyName)){
+        return baseProficiency * 2;
+      }
+      else{
+        return baseProficiency;
+      }
+    }
+    return 0;
+  }
+
 }
