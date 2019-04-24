@@ -1,3 +1,22 @@
-<p>
-  proficiencies works!
-</p>
+<h2>Proficiencies and Expertises</h2>
+<h3>Note: Expertises in Bold</h3>
+
+<ul>
+  <li *ngFor="let profType of proficienciesService.proficiencies | keyvalue">
+    {{profType.key}}
+    <ul>
+      <li *ngFor="let prof of profType.value">
+        <div *ngIf="proficienciesService.hasExpertise(profType.key,prof); then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>
+          <b>{{prof}}</b>
+        </ng-template>
+        <ng-template #elseBlock>
+          {{prof}}
+        </ng-template>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<button>Add Proficiency</button>
+<button>Add Expertise</button>

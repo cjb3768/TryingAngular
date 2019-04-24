@@ -8,26 +8,29 @@ import { ProficiencyList, ExpertiseList } from "./proficiency-list";
 export class ProficienciesService {
 
   proficiencies: ProficiencyList = {
-    savingThrows: ['wis'],
-    skills: ['perception'],
+    savingThrows: ['wis','dex'],
+    skills: ['perception','stealth','history'],
     weapons: ['simple'],
     armor: ['light'],
-    tools: ['thieve\'s tools','lute'],
+    tools: ['thieves\' tools','lute','disguise kit','gambling kit'],
     languages: ['common','elven']
   };
 
-  expertises: ExpertiseList;
+  expertises: ExpertiseList = {
+    skills: ['stealth','perception'],
+    tools: ['thieves\' tools','disguise kit']
+  };
 
   baseProficiency = 2;
 
   constructor() { }
 
   hasProficiency(proficiencyType: string, proficiencyName: string): boolean{
-    return (this.proficiencies.hasOwnProperty(proficiencyType) && this.proficiencies[proficiencyType].indexOf(proficiencyName));
+    return (this.proficiencies.hasOwnProperty(proficiencyType) && this.proficiencies[proficiencyType].includes(proficiencyName));
   }
 
   hasExpertise(expertiseType: string, expertiseName: string): boolean{
-    return (this.expertises.hasOwnProperty(expertiseType) && this.expertises[expertiseType].indexOf(expertiseName));
+    return (this.expertises.hasOwnProperty(expertiseType) && this.expertises[expertiseType].includes(expertiseName));
   }
 
   addProficiency(proficiencyType: string, proficiencyName: string){
