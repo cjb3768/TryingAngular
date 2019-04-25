@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { AbilityScoreArray } from '../ability-array';
+import { AbilityScoreArray, AbilityScoreInputs } from '../ability-array';
 import { AbilityScoresService } from '../ability-scores.service';
 
 @Component({
@@ -10,14 +10,6 @@ import { AbilityScoresService } from '../ability-scores.service';
   styleUrls: ['./ability-scores.component.css']
 })
 export class AbilityScoresComponent implements OnInit {
-
-  str = new FormControl(this.abilityScoresService.scores.str);
-  dex = new FormControl(this.abilityScoresService.scores.dex);
-  con = new FormControl(this.abilityScoresService.scores.con);
-  int = new FormControl(this.abilityScoresService.scores.int);
-  wis = new FormControl(this.abilityScoresService.scores.wis);
-  cha = new FormControl(this.abilityScoresService.scores.cha);
-
 
   constructor(private abilityScoresService: AbilityScoresService) { }
 
