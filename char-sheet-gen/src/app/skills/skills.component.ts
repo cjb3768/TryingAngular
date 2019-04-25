@@ -103,17 +103,15 @@ export class SkillsComponent implements OnInit {
   proficiencyChange(proficiencyControl: FormControl, expertiseControl: FormControl, skillName: string){
     if (proficiencyControl.value == true){
       console.log('Unchecking - should remove proficiency and expertise');
-      //remove proficiency
-
-      //remove expertise
-
+      //remove proficiency (and expertise, if relevant)
+      console.log(this.proficienciesService.removeProficiency('skills', skillName));
       //uncheck expertiseControl
       expertiseControl.setValue(false);
     }
     else{
       console.log('Checking - should add proficiency');
       //add proficiency
-      console.log(this.proficienciesService.addProficiency('skills',skillName));
+      console.log(this.proficienciesService.addProficiency('skills', skillName));
     }
   }
 
@@ -121,13 +119,13 @@ export class SkillsComponent implements OnInit {
     if (expertiseControl.value == true){
       console.log('Unchecking - should remove expertise');
       //remove expertise
-
+      console.log(this.proficienciesService.removeExpertise('skills', skillName));
     }
     else{
       console.log('Checking - should add expertise if proficient');
       //add expertise
       //TODO: fix this to uncheck box if we can't add the proficiency
-      console.log(this.proficienciesService.addExpertise('skills',skillName));
+      console.log(this.proficienciesService.addExpertise('skills', skillName));
     }
   }
 }
