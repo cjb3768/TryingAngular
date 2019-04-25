@@ -15,7 +15,7 @@ export class SkillsComponent implements OnInit {
 
   skills: SkillList = {
     acrobatics:     {name: 'acrobatics',     printName: 'Acrobatics',      ability: 'str', modifier: this.calculateSkillModifier('acrobatics','str')},
-    animalHandling: {name: 'animalHandling', printName: 'Animal Handling', ability: 'wis', modifier: this.calculateSkillModifier('animalHandling', 'wis')},
+    animalHandling: {name: 'animalHandling', printName: 'Animal Handling', ability: 'wis', modifier: this.calculateSkillModifier('animalHandling','wis')},
     arcana:         {name: 'arcana',         printName: 'Arcana',          ability: 'int', modifier: this.calculateSkillModifier('arcana','int')},
     athletics:      {name: 'athletics',      printName: 'Athletics',       ability: 'str', modifier: this.calculateSkillModifier('athletics','str')},
     deception:      {name: 'deception',      printName: 'Deception',       ability: 'cha', modifier: this.calculateSkillModifier('deception','cha')},
