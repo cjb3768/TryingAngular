@@ -2,5 +2,7 @@
 
 
 <div *ngFor="let skill of skills | keyvalue">
-  {{skill.value.printName}} : {{skill.value.modifier}}
+  {{skill.value.printName}} : {{skill.value.modifier}},
+  Proficiency: <input type="checkbox" [formControl]="proficiencyControls[skill.key]">,
+  Expertise: <input type="checkbox" [formControl]="expertiseControls[skill.key]">
 </div>

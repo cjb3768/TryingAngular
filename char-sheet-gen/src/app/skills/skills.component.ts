@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 import { AbilityScoresService } from '../ability-scores.service';
 import { ProficienciesService } from '../proficiencies.service';
 import { SkillList } from '../skill-list';
+import { SkillControlList } from '../skill-control-list';
 
 @Component({
   selector: 'app-skills',
@@ -31,6 +33,49 @@ export class SkillsComponent implements OnInit {
     stealth:        {name: 'stealth', printName: 'Stealth', ability: 'dex', modifier: this.calculateSkillModifier('stealth','dex')},
     survival:       {name: 'survival', printName: 'Survival', ability: 'wis', modifier: this.calculateSkillModifier('survival','wis')}
   };
+
+  //form controls
+  proficiencyControls: SkillControlList = {
+    acrobatics:     new FormControl(this.proficienciesService.hasProficiency('skills','acrobatics')),
+    animalHandling: new FormControl(this.proficienciesService.hasProficiency('skills','animalHandling')),
+    arcana:         new FormControl(this.proficienciesService.hasProficiency('skills','arcana')),
+    athletics:      new FormControl(this.proficienciesService.hasProficiency('skills','athletics')),
+    deception:      new FormControl(this.proficienciesService.hasProficiency('skills','deception')),
+    history:        new FormControl(this.proficienciesService.hasProficiency('skills','history')),
+    insight:        new FormControl(this.proficienciesService.hasProficiency('skills','insight')),
+    intimidation:   new FormControl(this.proficienciesService.hasProficiency('skills','intimidation')),
+    investigation:  new FormControl(this.proficienciesService.hasProficiency('skills','investigation')),
+    medicine:       new FormControl(this.proficienciesService.hasProficiency('skills','medicine')),
+    nature:         new FormControl(this.proficienciesService.hasProficiency('skills','nature')),
+    perception:     new FormControl(this.proficienciesService.hasProficiency('skills','perception')),
+    performance:    new FormControl(this.proficienciesService.hasProficiency('skills','performance')),
+    persuasion:     new FormControl(this.proficienciesService.hasProficiency('skills','persuasion')),
+    religion:       new FormControl(this.proficienciesService.hasProficiency('skills','religion')),
+    sleightOfHand:  new FormControl(this.proficienciesService.hasProficiency('skills','sleightOfHand')),
+    stealth:        new FormControl(this.proficienciesService.hasProficiency('skills','stealth')),
+    survival:       new FormControl(this.proficienciesService.hasProficiency('skills','survival'))
+  }
+
+  expertiseControls: SkillControlList = {
+    acrobatics:     new FormControl(this.proficienciesService.hasExpertise('skills','acrobatics')),
+    animalHandling: new FormControl(this.proficienciesService.hasExpertise('skills','animalHandling')),
+    arcana:         new FormControl(this.proficienciesService.hasExpertise('skills','arcana')),
+    athletics:      new FormControl(this.proficienciesService.hasExpertise('skills','athletics')),
+    deception:      new FormControl(this.proficienciesService.hasExpertise('skills','deception')),
+    history:        new FormControl(this.proficienciesService.hasExpertise('skills','history')),
+    insight:        new FormControl(this.proficienciesService.hasExpertise('skills','insight')),
+    intimidation:   new FormControl(this.proficienciesService.hasExpertise('skills','intimidation')),
+    investigation:  new FormControl(this.proficienciesService.hasExpertise('skills','investigation')),
+    medicine:       new FormControl(this.proficienciesService.hasExpertise('skills','medicine')),
+    nature:         new FormControl(this.proficienciesService.hasExpertise('skills','nature')),
+    perception:     new FormControl(this.proficienciesService.hasExpertise('skills','perception')),
+    performance:    new FormControl(this.proficienciesService.hasExpertise('skills','performance')),
+    persuasion:     new FormControl(this.proficienciesService.hasExpertise('skills','persuasion')),
+    religion:       new FormControl(this.proficienciesService.hasExpertise('skills','religion')),
+    sleightOfHand:  new FormControl(this.proficienciesService.hasExpertise('skills','sleightOfHand')),
+    stealth:        new FormControl(this.proficienciesService.hasExpertise('skills','stealth')),
+    survival:       new FormControl(this.proficienciesService.hasExpertise('skills','survival'))
+  }
 
   constructor(private abilityScoresService: AbilityScoresService, private proficienciesService: ProficienciesService) { }
 
