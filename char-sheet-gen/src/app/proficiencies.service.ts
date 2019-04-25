@@ -9,7 +9,7 @@ export class ProficienciesService {
 
   proficiencies: ProficiencyList = {
     savingThrows: ['wis','dex'],
-    skills: ['perception','stealth','history'],
+    skills: ['perception','stealth','history','arcana','athletics'],
     weapons: ['simple'],
     armor: ['light'],
     tools: ['thieves\' tools','lute','disguise kit','gambling kit'],
@@ -17,7 +17,7 @@ export class ProficienciesService {
   };
 
   expertises: ExpertiseList = {
-    skills: ['stealth','perception'],
+    skills: ['stealth','perception','athletics'],
     tools: ['thieves\' tools','disguise kit']
   };
 
