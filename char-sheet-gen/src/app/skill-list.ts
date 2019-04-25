@@ -1,20 +1,27 @@
+export class SkillProperties{
+  name: string;
+  printName: string;
+  ability: string;
+  modifier: number;
+}
+
 export class SkillList {
-  acrobatics: number;
-  animalHandling: number;
-  arcana: number;
-  athletics: number;
-  deception: number;
-  history: number;
-  insight: number;
-  intimidation: number;
-  investigation: number;
-  medicine: number;
-  nature: number;
-  perception: number;
-  performance: number;
-  persuasion: number;
-  religion: number;
-  sleightOfHand: number;
-  stealth: number;
-  survival: number;
+  acrobatics: SkillProperties;
+  animalHandling: SkillProperties;
+  arcana: SkillProperties;
+  athletics: SkillProperties;
+  deception: SkillProperties;
+  history: SkillProperties;
+  insight: SkillProperties;
+  intimidation: SkillProperties;
+  investigation: SkillProperties;
+  medicine: SkillProperties;
+  nature: SkillProperties;
+  perception: SkillProperties;
+  performance: SkillProperties;
+  persuasion: SkillProperties;
+  religion: SkillProperties;
+  sleightOfHand: SkillProperties;
+  stealth: SkillProperties;
+  survival: SkillProperties;
 }

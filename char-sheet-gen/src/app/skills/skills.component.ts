@@ -12,24 +12,24 @@ import { SkillList } from '../skill-list';
 export class SkillsComponent implements OnInit {
 
   skills: SkillList = {
-    acrobatics: this.calculateSkillModifier('acrobatics', 'str'),
-    animalHandling: this.calculateSkillModifier('animalHandling', 'wis'),
-    arcana: this.calculateSkillModifier('arcana','int'),
-    athletics: this.calculateSkillModifier('athletics','str'),
-    deception: 0,
-    history: 0,
-    insight: 0,
-    intimidation: 0,
-    investigation: 0,
-    medicine: 0,
-    nature: 0,
-    perception: 0,
-    performance: 0,
-    persuasion: 0,
-    religion: 0,
-    sleightOfHand: 0,
-    stealth: 0,
-    survival: 0
+    acrobatics:     {name: 'acrobatics', printName: 'Acrobatics', ability: 'str', modifier: this.calculateSkillModifier('acrobatics','str')},
+    animalHandling: {name: 'animalHandling', printName: 'Animal Handling', ability: 'wis', modifier: this.calculateSkillModifier('animalHandling', 'wis')},
+    arcana:         {name: 'arcana', printName: 'Arcana', ability: 'int', modifier: this.calculateSkillModifier('arcana','int')},
+    athletics:      {name: 'athletics', printName: 'Athletics', ability: 'str', modifier: this.calculateSkillModifier('athletics','str')},
+    deception:      {name: 'deception', printName: 'Deception', ability: 'cha', modifier: this.calculateSkillModifier('deception','cha')},
+    history:        {name: 'history', printName: 'History', ability: 'int', modifier: this.calculateSkillModifier('history','int')},
+    insight:        {name: 'insight', printName: 'Insight', ability: 'wis', modifier: this.calculateSkillModifier('insight','wis')},
+    intimidation:   {name: 'intimidation', printName: 'Intimidation', ability: 'cha', modifier: this.calculateSkillModifier('intimidation','cha')},
+    investigation:  {name: 'investigation', printName: 'Investigation', ability: 'int', modifier: this.calculateSkillModifier('investigation','int')},
+    medicine:       {name: 'medicine', printName: 'Medicine', ability: 'wis', modifier: this.calculateSkillModifier('medicine','wis')},
+    nature:         {name: 'nature', printName: 'Nature', ability: 'int', modifier: this.calculateSkillModifier('nature','int')},
+    perception:     {name: 'perception', printName: 'Perception', ability: 'wis', modifier: this.calculateSkillModifier('perception','wis')},
+    performance:    {name: 'performance', printName: 'Performance', ability: 'cha', modifier: this.calculateSkillModifier('performance','cha')},
+    persuasion:     {name: 'persuasion', printName: 'Persuasion', ability: 'cha', modifier: this.calculateSkillModifier('persuasion','cha')},
+    religion:       {name: 'religion', printName: 'Religion', ability: 'int', modifier: this.calculateSkillModifier('religion','int')},
+    sleightOfHand:  {name: 'sleightOfHand', printName: 'Sleight of Hand', ability: 'dex', modifier: this.calculateSkillModifier('sleightOfHand','dex')},
+    stealth:        {name: 'stealth', printName: 'Stealth', ability: 'dex', modifier: this.calculateSkillModifier('stealth','dex')},
+    survival:       {name: 'survival', printName: 'Survival', ability: 'wis', modifier: this.calculateSkillModifier('survival','wis')}
   };
 
   constructor(private abilityScoresService: AbilityScoresService, private proficienciesService: ProficienciesService) { }
@@ -39,5 +39,14 @@ export class SkillsComponent implements OnInit {
 
   calculateSkillModifier(skillName: string, abilityName: string) : number {
     return this.abilityScoresService.modifiers[abilityName] + this.proficienciesService.calculateProficiencyBonus('skills', skillName);
+  }
+
+  updateSkillModifiers(changedAbilityScore: string){
+    //update all of the ability modifiers whose matching ability score has changed
+    for (let s in this.skills){
+      if (this.skills[s].ability == changedAbilityScore){
+        this.skills[s].modifier = this.calculateSkillModifier(this.skills[s].name, this.skills[s].ability);
+      }
+    }
   }
 }

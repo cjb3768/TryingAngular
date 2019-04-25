@@ -2,5 +2,5 @@
 
 
 <div *ngFor="let skill of skills | keyvalue">
-  {{skill.key}} : {{skill.value}}
+  {{skill.value.printName}} : {{skill.value.modifier}}
 </div>
