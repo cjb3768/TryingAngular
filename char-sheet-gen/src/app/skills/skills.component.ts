@@ -80,6 +80,11 @@ export class SkillsComponent implements OnInit {
   constructor(private abilityScoresService: AbilityScoresService, private proficienciesService: ProficienciesService) { }
 
   ngOnInit() {
+    /*
+    for (let controlName in this.proficiencyControls){
+      this.proficiencyControls[controlName].registerOnChange(this.proficiencyChange(this.proficiencyControls[controlName]));
+    }
+    */
   }
 
   calculateSkillModifier(skillName: string, abilityName: string) : number {
@@ -92,6 +97,37 @@ export class SkillsComponent implements OnInit {
       if (this.skills[s].ability == changedAbilityScore){
         this.skills[s].modifier = this.calculateSkillModifier(this.skills[s].name, this.skills[s].ability);
       }
+    }
+  }
+
+  proficiencyChange(proficiencyControl: FormControl, expertiseControl: FormControl, skillName: string){
+    if (proficiencyControl.value == true){
+      console.log('Unchecking - should remove proficiency and expertise');
+      //remove proficiency
+
+      //remove expertise
+
+      //uncheck expertiseControl
+      expertiseControl.setValue(false);
+    }
+    else{
+      console.log('Checking - should add proficiency');
+      //add proficiency
+      console.log(this.proficienciesService.addProficiency('skills',skillName));
+    }
+  }
+
+  expertiseChange(proficiencyControl: FormControl, expertiseControl: FormControl, skillName: string){
+    if (expertiseControl.value == true){
+      console.log('Unchecking - should remove expertise');
+      //remove expertise
+
+    }
+    else{
+      console.log('Checking - should add expertise if proficient');
+      //add expertise
+      //TODO: fix this to uncheck box if we can't add the proficiency
+      console.log(this.proficienciesService.addExpertise('skills',skillName));
     }
   }
 }
