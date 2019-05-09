@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
-import { AbilityScoreArray, AbilityScoreInputs } from './ability-array';
+import { AbilityScoreArray } from './ability-array';
 
 @Injectable({
   providedIn: 'root'
