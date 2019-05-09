@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
 import { AbilityScoresService } from '../ability-scores.service';
 import { ProficienciesService } from '../proficiencies.service';
 import { SkillList } from '../skill-list';
-import { SkillControlList } from '../skill-control-list';
 
 @Component({
   selector: 'app-skills',
@@ -35,7 +34,7 @@ export class SkillsComponent implements OnInit {
   };
 
   //form controls
-  proficiencyControls: SkillControlList = {
+  proficiencyControls = new FormGroup({
     acrobatics:     new FormControl(this.proficienciesService.hasProficiency('skills','acrobatics')),
     animalHandling: new FormControl(this.proficienciesService.hasProficiency('skills','animalHandling')),
     arcana:         new FormControl(this.proficienciesService.hasProficiency('skills','arcana')),
@@ -54,9 +53,9 @@ export class SkillsComponent implements OnInit {
     sleightOfHand:  new FormControl(this.proficienciesService.hasProficiency('skills','sleightOfHand')),
     stealth:        new FormControl(this.proficienciesService.hasProficiency('skills','stealth')),
     survival:       new FormControl(this.proficienciesService.hasProficiency('skills','survival'))
-  }
+  });
 
-  expertiseControls: SkillControlList = {
+  expertiseControls = new FormGroup({
     acrobatics:     new FormControl(this.proficienciesService.hasExpertise('skills','acrobatics')),
     animalHandling: new FormControl(this.proficienciesService.hasExpertise('skills','animalHandling')),
     arcana:         new FormControl(this.proficienciesService.hasExpertise('skills','arcana')),
@@ -75,12 +74,17 @@ export class SkillsComponent implements OnInit {
     sleightOfHand:  new FormControl(this.proficienciesService.hasExpertise('skills','sleightOfHand')),
     stealth:        new FormControl(this.proficienciesService.hasExpertise('skills','stealth')),
     survival:       new FormControl(this.proficienciesService.hasExpertise('skills','survival'))
-  }
+  });
 
   constructor(private abilityScoresService: AbilityScoresService, private proficienciesService: ProficienciesService) { }
 
   ngOnInit() {
-
+    //disable all expertise controls where the character lacks proficiency
+    for (let s in this.skills){
+      if (!this.proficienciesService.hasProficiency('skills', s)){
+        this.expertiseControls.controls[s].disable();
+      }
+    }
   }
 
   calculateSkillModifier(skillName: string, abilityName: string) : number {
@@ -96,40 +100,57 @@ export class SkillsComponent implements OnInit {
     }
   }
 
-  proficiencyChange(proficiencyControl: FormControl, expertiseControl: FormControl, skillName: string){
+  proficiencyChange(proficiencyControl: AbstractControl, expertiseControl: AbstractControl, skillName: string){
     //handle change in proficiency
-    if (proficiencyControl.value == true){
-      console.log('Unchecking - should remove proficiency and expertise');
+    if (proficiencyControl.value){
+      console.log('Box checked - should add proficiency');
+      //add proficiency
+      console.log(this.proficienciesService.addProficiency('skills', skillName));
+      //reactivate expertiseControl
+      expertiseControl.enable();
+    }
+    else{
+      console.log('Box unchecked - should remove proficiency and expertise');
       //remove proficiency (and expertise, if relevant)
       console.log(this.proficienciesService.removeProficiency('skills', skillName));
       //uncheck expertiseControl
       expertiseControl.setValue(false);
-    }
-    else{
-      console.log('Checking - should add proficiency');
-      //add proficiency
-      console.log(this.proficienciesService.addProficiency('skills', skillName));
+      //deactivate expertiseControl
+      expertiseControl.disable();
     }
 
     //recalculate skill modifier
     this.skills[skillName].modifier = this.calculateSkillModifier(skillName, this.skills[skillName].ability);
   }
 
-  expertiseChange(proficiencyControl: FormControl, expertiseControl: FormControl, skillName: string){
+  expertiseChange(proficiencyControl: AbstractControl, expertiseControl: AbstractControl, skillName: string){
     //handle change in expertise
     if (expertiseControl.value == true){
-      console.log('Unchecking - should remove expertise');
-      //remove expertise
-      console.log(this.proficienciesService.removeExpertise('skills', skillName));
-    }
-    else{
-      console.log('Checking - should add expertise if proficient');
+      console.log('Box checked - should add expertise if proficient');
       //add expertise
       //TODO: fix this to uncheck box if we can't add the proficiency
       console.log(this.proficienciesService.addExpertise('skills', skillName));
+
+    }
+    else{
+      console.log('Box unchecked - should remove expertise');
+      //remove expertise
+      console.log(this.proficienciesService.removeExpertise('skills', skillName));
     }
 
     //recalculate skill modifier
     this.skills[skillName].modifier = this.calculateSkillModifier(skillName, this.skills[skillName].ability);
+  }
+
+  setProficiency(proficiencyName: string){
+    this.proficiencyChange(this.proficiencyControls.controls[proficiencyName],
+                          this.expertiseControls.controls[proficiencyName],
+                          proficiencyName);
+  }
+
+  setExpertise(expertiseName: string){
+    this.expertiseChange(this.proficiencyControls.controls[expertiseName],
+                        this.expertiseControls.controls[expertiseName],
+                        expertiseName)
   }
 }
