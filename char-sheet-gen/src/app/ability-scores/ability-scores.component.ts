@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { AbilityScoreArray, AbilityScoreInputs } from '../ability-array';
+import { AbilityScoreArray } from '../ability-array';
 import { AbilityScoresService } from '../ability-scores.service';
 
 @Component({

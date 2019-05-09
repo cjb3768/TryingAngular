@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
-import { AbilityScoreArray, AbilityScoreInputs } from './ability-array';
+import { AbilityScoreArray } from './ability-array';
 
 @Injectable({
   providedIn: 'root'
@@ -15,16 +15,16 @@ export class AbilityScoresService {
     int: 12,
     wis: 12,
     cha: 12
-  };
-
-  inputs: AbilityScoreInputs = {
-    str: new FormControl(this.scores.str),
-    dex: new FormControl(this.scores.dex),
-    con: new FormControl(this.scores.con),
-    int: new FormControl(this.scores.int),
-    wis: new FormControl(this.scores.wis),
-    cha: new FormControl(this.scores.cha)
   }
+
+  inputs = new FormGroup({
+      str: new FormControl (this.scores.str),
+      dex: new FormControl (this.scores.dex),
+      con: new FormControl (this.scores.con),
+      int: new FormControl (this.scores.int),
+      wis: new FormControl (this.scores.wis),
+      cha: new FormControl (this.scores.cha),
+  })
 
   modifiers: AbilityScoreArray = {
     str: this.calculateModifier(this.scores.str),
