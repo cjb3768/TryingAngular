@@ -1,10 +1,10 @@
-<div>
-  Strength: <input type="number" [formControl]="str" min=0 max=20 (input)="updateScore('str',str)">
-  Dexterity: <input type="number" [formControl]="dex" min=0 max=20 (input)="updateScore('dex',dex)">
-  Constitution: <input type="number" [formControl]="con" min=0 max=20 (input)="updateScore('con',con)">
-  Intelligence: <input type="number" [formControl]="int" min=0 max=20 (input)="updateScore('int',int)">
-  Wisdom: <input type="number" [formControl]="wis" min=0 max=20 (input)="updateScore('wis',wis)">
-  Charisma: <input type="number" [formControl]="cha" min=0 max=20 (input)="updateScore('cha',cha)">
+<div [formGroup]="this.abilityScoresService.inputs">
+  Strength: <input type="number" formControlName="str" min=0 max=20 (input)="updateScore('str', this.abilityScoresService.inputs.get('str'))">
+  Dexterity: <input type="number" formControlName="dex" min=0 max=20 (input)="updateScore('dex', this.abilityScoresService.inputs.get('dex'))">
+  Constitution: <input type="number" formControlName="con" min=0 max=20 (input)="updateScore('con', this.abilityScoresService.inputs.get('con'))">
+  Intelligence: <input type="number" formControlName="int" min=0 max=20 (input)="updateScore('int', this.abilityScoresService.inputs.get('int'))">
+  Wisdom: <input type="number" formControlName="wis" min=0 max=20 (input)="updateScore('wis', this.abilityScoresService.inputs.get('wis'))">
+  Charisma: <input type="number" formControlName="cha" min=0 max=20 (input)="updateScore('cha', this.abilityScoresService.inputs.get('cha'))">
 </div>
 <div>
   Strength Modifier = {{abilityScoresService.modifiers.str}}

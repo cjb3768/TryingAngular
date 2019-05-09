@@ -9,7 +9,7 @@ export class ProficienciesService {
 
   proficiencies: ProficiencyList = {
     savingThrows: ['wis','dex'],
-    skills: ['perception','stealth','history'],
+    skills: ['perception','stealth','history','arcana','athletics'],
     weapons: ['simple'],
     armor: ['light'],
     tools: ['thieves\' tools','lute','disguise kit','gambling kit'],
@@ -17,7 +17,7 @@ export class ProficienciesService {
   };
 
   expertises: ExpertiseList = {
-    skills: ['stealth','perception'],
+    skills: ['stealth','perception','athletics'],
     tools: ['thieves\' tools','disguise kit']
   };
 
@@ -74,6 +74,46 @@ export class ProficienciesService {
     }
     else{
       //invalid expertise type
+      return `Error: Invalid expertise type`;
+    }
+  }
+
+  removeProficiency(proficiencyType: string, proficiencyName:string): string{
+    let index = 0;
+    if (this.proficiencies.hasOwnProperty(proficiencyType)){
+      if (this.proficiencies[proficiencyType].includes(proficiencyName)){
+        //remove proficiency
+        index = this.proficiencies[proficiencyType].indexOf(proficiencyName);
+        this.proficiencies[proficiencyType].splice(index,1);
+        //additionally remove expertise with proficiencyName if it exists (can't have expertise in something you don't have proficiency in)
+        if (this.hasExpertise(proficiencyType, proficiencyName)){
+          console.log(this.removeExpertise(proficiencyType, proficiencyName));
+        }
+        return `Proficiency "${proficiencyName}" removed`;
+      }
+      else{
+        return `Error: Proficiency "${proficiencyName}" does not exist`;
+      }
+    }
+    else{
+      return `Error: Invalid proficiency type`;
+    }
+  }
+
+  removeExpertise(expertiseType:string, expertiseName:string): string{
+    let index = 0;
+    if (this.expertises.hasOwnProperty(expertiseType)){
+      if (this.expertises[expertiseType].includes(expertiseName)){
+        //remove expertise
+        index = this.expertises[expertiseType].indexOf(expertiseName);
+        this.expertises[expertiseType].splice(index,1);
+        return `Expertise "${expertiseName}" removed`;
+      }
+      else{
+        return `Error: Expertise "${expertiseName}" does not exist`;
+      }
+    }
+    else{
       return `Error: Invalid expertise type`;
     }
   }
