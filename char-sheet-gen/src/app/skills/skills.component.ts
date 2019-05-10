@@ -77,10 +77,48 @@ export class SkillsComponent implements OnInit {
   });
 
   constructor(private abilityScoresService: AbilityScoresService, private proficienciesService: ProficienciesService) {
+    //abilityScoresService subscriptions
     abilityScoresService.onUpdateEvent.subscribe(
       (adjustedScore) => {
         console.log(`Modifier for ${adjustedScore} changed. Updating relevant skills.`);
         this.updateSkillModifiers(adjustedScore);
+      }
+    );
+
+    //proficienciesService subscriptions
+    proficienciesService.addProficiencyEvent.subscribe(
+      (proficiencyContext) => {
+        if (proficiencyContext.type == "skills"){
+          //verify that the skill in question exists
+          if (this.skills[proficiencyContext.name]){
+            //set value of matching skill checkbox
+            console.log(`Updating interface to match added proficiency in skill ${proficiencyContext.name}.`);
+            this.proficiencyControls.controls[proficiencyContext.name].setValue(true);
+            //set proficiency
+            this.setProficiency(proficiencyContext.name);
+          }
+        }
+        else{
+          console.log(`Encountered unexpected proficiency type ${proficiencyContext.type}.`);
+        }
+      }
+    );
+
+    proficienciesService.addExpertiseEvent.subscribe(
+      (expertiseContext) => {
+        if (expertiseContext.type == "skills"){
+          //verify that the skill in question exists
+          if (this.skills[expertiseContext.name]){
+            //set value of matching skill checkbox
+            console.log(`Updating interface to match added expertise in skill ${expertiseContext.name}.`);
+            this.expertiseControls.controls[expertiseContext.name].setValue(true);
+            //set expertise
+            this.setExpertise(expertiseContext.name);
+          }
+        }
+        else{
+          console.log(`Encountered unexpected proficiency type ${expertiseContext.type}`);
+        }
       }
     );
   }
