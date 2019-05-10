@@ -18,7 +18,7 @@
   </li>
 </ul>
 
-<h3>Add a Proficiency</h3>
+<h3>Add or Remove a Proficiency</h3>
 <div>
 
   Type:
@@ -31,9 +31,10 @@
   Proficiency:
   <input type="string" [formControl]="proficiencyName">
   <button (click)="addProficiency()">Add Proficiency</button>
+  <button (click)="removeProficiency()">Remove Proficiency</button>
 </div>
 
-<h3>Add an Expertise</h3>
+<h3>Add or Remove an Expertise</h3>
 <div>
   Type:
 
@@ -46,4 +47,5 @@
   Expertise:
   <input type="string" [formControl]="expertiseName">
   <button (click)="addExpertise()">Add Expertise</button>
+  <button (click)="removeExpertise()">Remove Expertise</button>
 </div>
