@@ -79,6 +79,7 @@ export class SkillsComponent implements OnInit {
   constructor(private abilityScoresService: AbilityScoresService, private proficienciesService: ProficienciesService) {
     abilityScoresService.onUpdateEvent.subscribe(
       (adjustedScore) => {
+        console.log(`Modifier for ${adjustedScore} changed. Updating relevant skills.`);
         this.updateSkillModifiers(adjustedScore);
       }
     );

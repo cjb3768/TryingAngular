@@ -17,10 +17,13 @@ export class AbilityScoresComponent implements OnInit {
   }
 
   updateScore(adjustedScore:string, control: FormControl) {
+    let oldModifier = this.abilityScoresService.modifiers[adjustedScore];
     //update score
     this.abilityScoresService.updateScore(adjustedScore, control.value);
-    //emit event
-    this.abilityScoresService.onUpdateEvent.emit(adjustedScore);
+    //emit event if modifier changed
+    if (oldModifier != this.abilityScoresService.modifiers[adjustedScore]){
+      this.abilityScoresService.onUpdateEvent.emit(adjustedScore);
+    }
   }
 
 }
