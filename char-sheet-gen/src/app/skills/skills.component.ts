@@ -80,7 +80,7 @@ export class SkillsComponent implements OnInit {
     //abilityScoresService subscriptions
     abilityScoresService.onUpdateEvent.subscribe(
       (adjustedScore) => {
-        console.log(`Modifier for ${adjustedScore} changed. Updating relevant skills.`);
+        console.log(`Modifier for "${adjustedScore}" changed. Updating relevant skills.`);
         this.updateSkillModifiers(adjustedScore);
       }
     );
@@ -91,7 +91,7 @@ export class SkillsComponent implements OnInit {
         if (proficiencyContext.type == "skills"){
           //verify that the skill in question exists
           if (this.skills[proficiencyContext.name]){
-            console.log(`Updating interface to match added proficiency in skill ${proficiencyContext.name}.`);
+            console.log(`Updating interface to match added proficiency for "${proficiencyContext.name}"`);
             //set value of matching proficiency checkbox
             this.proficiencyControls.controls[proficiencyContext.name].setValue(true);
             //enable matching expertise checkbox
@@ -101,7 +101,7 @@ export class SkillsComponent implements OnInit {
           }
         }
         else{
-          console.log(`Encountered unexpected proficiency type ${proficiencyContext.type}.`);
+          console.log(`Encountered unexpected proficiency type "${proficiencyContext.type}"`);
         }
       }
     );
@@ -111,7 +111,7 @@ export class SkillsComponent implements OnInit {
         if (expertiseContext.type == "skills"){
           //verify that the skill in question exists
           if (this.skills[expertiseContext.name]){
-            console.log(`Updating interface to match added expertise in skill ${expertiseContext.name}.`);
+            console.log(`Updating interface to match added expertise for "${expertiseContext.name}"`);
             //set value of matching expertise checkbox
             this.expertiseControls.controls[expertiseContext.name].setValue(true);
             //update modifier
@@ -119,7 +119,7 @@ export class SkillsComponent implements OnInit {
           }
         }
         else{
-          console.log(`Encountered unexpected expertise type ${expertiseContext.type}`);
+          console.log(`Encountered unexpected expertise type "${expertiseContext.type}"`);
         }
       }
     );
@@ -129,7 +129,7 @@ export class SkillsComponent implements OnInit {
         if (proficiencyContext.type == "skills"){
           //verify that the skill in question exists
           if (this.skills[proficiencyContext.name]){
-            console.log(`Updating interface to match removed proficiency in skill ${proficiencyContext.name}.`);
+            console.log(`Updating interface to match removed proficiency for "${proficiencyContext.name}"`);
             //set value of matching proficiency checkbox
             this.proficiencyControls.controls[proficiencyContext.name].setValue(false);
             //disable matching expertise checkbox
@@ -140,7 +140,7 @@ export class SkillsComponent implements OnInit {
           }
         }
         else{
-          console.log(`Encountered unexpected proficiency type ${proficiencyContext.type}.`);
+          console.log(`Encountered unexpected proficiency type "${proficiencyContext.type}"`);
         }
       }
     );
@@ -150,7 +150,7 @@ export class SkillsComponent implements OnInit {
         if (expertiseContext.type == "skills"){
           //verify that the skill in question exists
           if (this.skills[expertiseContext.name]){
-            console.log(`Updating interface to match removed expertise in skill ${expertiseContext.name}.`);
+            console.log(`Updating interface to match removed expertise for "${expertiseContext.name}"`);
             //set value of matching expertise checkbox
             this.expertiseControls.controls[expertiseContext.name].setValue(false);
             //update modifier
@@ -158,7 +158,7 @@ export class SkillsComponent implements OnInit {
           }
         }
         else{
-          console.log(`Encountered unexpected expertise type ${expertiseContext.type}`);
+          console.log(`Encountered unexpected expertise type "${expertiseContext.type}"`);
         }
       }
     );
@@ -186,56 +186,37 @@ export class SkillsComponent implements OnInit {
     }
   }
 
-  proficiencyChange(proficiencyControl: AbstractControl, expertiseControl: AbstractControl, skillName: string){
-    //handle change in proficiency
+  updateProficiency(proficiencyControl: AbstractControl, skillName: string){
     if (proficiencyControl.value){
-      console.log('Box checked - should add proficiency');
       //add proficiency
       console.log(this.proficienciesService.addProficiency('skills', skillName));
-      //reactivate expertiseControl
-      expertiseControl.enable();
     }
     else{
-      console.log('Box unchecked - should remove proficiency and expertise');
       //remove proficiency (and expertise, if relevant)
       console.log(this.proficienciesService.removeProficiency('skills', skillName));
-      //uncheck expertiseControl
-      expertiseControl.setValue(false);
-      //deactivate expertiseControl
-      expertiseControl.disable();
     }
-
-    //recalculate skill modifier
-    this.skills[skillName].modifier = this.calculateSkillModifier(skillName, this.skills[skillName].ability);
   }
 
-  expertiseChange(proficiencyControl: AbstractControl, expertiseControl: AbstractControl, skillName: string){
+  updateExpertise(expertiseControl: AbstractControl, skillName: string){
     //handle change in expertise
     if (expertiseControl.value == true){
-      console.log('Box checked - should add expertise if proficient');
       //add expertise
       console.log(this.proficienciesService.addExpertise('skills', skillName));
 
     }
     else{
-      console.log('Box unchecked - should remove expertise');
       //remove expertise
       console.log(this.proficienciesService.removeExpertise('skills', skillName));
     }
-
-    //recalculate skill modifier
-    this.skills[skillName].modifier = this.calculateSkillModifier(skillName, this.skills[skillName].ability);
   }
 
   setProficiency(proficiencyName: string){
-    this.proficiencyChange(this.proficiencyControls.controls[proficiencyName],
-                          this.expertiseControls.controls[proficiencyName],
+    this.updateProficiency(this.proficiencyControls.controls[proficiencyName],
                           proficiencyName);
   }
 
   setExpertise(expertiseName: string){
-    this.expertiseChange(this.proficiencyControls.controls[expertiseName],
-                        this.expertiseControls.controls[expertiseName],
+    this.updateExpertise(this.expertiseControls.controls[expertiseName],
                         expertiseName)
   }
 }
