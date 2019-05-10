@@ -98,6 +98,8 @@ export class ProficienciesService {
         //remove proficiency
         index = this.proficiencies[proficiencyType].indexOf(proficiencyName);
         this.proficiencies[proficiencyType].splice(index,1);
+        //emit remove event
+        this.removeProficiencyEvent.emit({'type':proficiencyType, 'name':proficiencyName});
         //additionally remove expertise with proficiencyName if it exists (can't have expertise in something you don't have proficiency in)
         if (this.hasExpertise(proficiencyType, proficiencyName)){
           console.log(this.removeExpertise(proficiencyType, proficiencyName));
@@ -120,6 +122,8 @@ export class ProficienciesService {
         //remove expertise
         index = this.expertises[expertiseType].indexOf(expertiseName);
         this.expertises[expertiseType].splice(index,1);
+        //emit remove event
+        this.removeExpertiseEvent.emit({'type':expertiseType, 'name':expertiseName});
         return `Expertise "${expertiseName}" removed`;
       }
       else{
