@@ -11,7 +11,7 @@ import { SkillList } from '../skill-list';
   styleUrls: ['./skills.component.css']
 })
 export class SkillsComponent implements OnInit {
-
+  //skills
   skills: SkillList = {
     acrobatics:     {name: 'acrobatics',     printName: 'Acrobatics',      ability: 'str', modifier: this.calculateSkillModifier('acrobatics','str')},
     animalHandling: {name: 'animalHandling', printName: 'Animal Handling', ability: 'wis', modifier: this.calculateSkillModifier('animalHandling','wis')},
@@ -76,7 +76,13 @@ export class SkillsComponent implements OnInit {
     survival:       new FormControl(this.proficienciesService.hasExpertise('skills','survival'))
   });
 
-  constructor(private abilityScoresService: AbilityScoresService, private proficienciesService: ProficienciesService) { }
+  constructor(private abilityScoresService: AbilityScoresService, private proficienciesService: ProficienciesService) {
+    abilityScoresService.onUpdateEvent.subscribe(
+      (adjustedScore) => {
+        this.updateSkillModifiers(adjustedScore);
+      }
+    );
+  }
 
   ngOnInit() {
     //disable all expertise controls where the character lacks proficiency

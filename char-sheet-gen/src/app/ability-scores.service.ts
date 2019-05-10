@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { AbilityScoreArray } from './ability-array';
@@ -8,6 +8,9 @@ import { AbilityScoreArray } from './ability-array';
 })
 export class AbilityScoresService {
 
+  onUpdateEvent: EventEmitter<any> = new EventEmitter(true);
+
+  //Members
   scores: AbilityScoreArray = {
     str: 12,
     dex: 12,
@@ -42,6 +45,7 @@ export class AbilityScoresService {
   }
 
   updateScore(adjustedScore:string, value: number){
+    //update scores and modifier
     this.scores[adjustedScore] = value;
     this.modifiers[adjustedScore] = this.calculateModifier(value);
   }
