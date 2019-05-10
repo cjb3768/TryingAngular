@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 
 import { ProficiencyList, ExpertiseList } from "./proficiency-list";
 
@@ -7,6 +7,13 @@ import { ProficiencyList, ExpertiseList } from "./proficiency-list";
 })
 export class ProficienciesService {
 
+  //event emitters
+  addProficiencyEvent: EventEmitter<any> = new EventEmitter(true);
+  removeProficiencyEvent: EventEmitter<any> = new EventEmitter(true);
+  addExpertiseEvent: EventEmitter<any> = new EventEmitter(true);
+  removeExpertiseEvent: EventEmitter<any> = new EventEmitter(true);
+
+  //proficiencies and expertises
   proficiencies: ProficiencyList = {
     savingThrows: ['wis','dex'],
     skills: ['perception','stealth','history','arcana','athletics'],
@@ -38,7 +45,10 @@ export class ProficienciesService {
     if (this.proficiencies.hasOwnProperty(proficiencyType)){
       //verify that the character does not already have that proficiency
       if (!this.proficiencies[proficiencyType].includes(proficiencyName)){
+        //add proficiency
         this.proficiencies[proficiencyType].push(proficiencyName);
+        //emit add event
+        this.addProficiencyEvent.emit({'type':proficiencyType, 'name':proficiencyName});
         return `Proficiency "${proficiencyName}" added`;
       }
       else{
@@ -59,7 +69,10 @@ export class ProficienciesService {
       if (this.proficiencies[expertiseType].includes(expertiseName)){
         //verify the character doesn't already have expertise in the skill
         if (!this.expertises[expertiseType].includes(expertiseName)){
+          //add expertise
           this.expertises[expertiseType].push(expertiseName);
+          //emit add event
+          this.addExpertiseEvent.emit({'type':expertiseType, 'name':expertiseName});
           return `Expertise "${expertiseName}" added`;
         }
         else{
@@ -85,6 +98,8 @@ export class ProficienciesService {
         //remove proficiency
         index = this.proficiencies[proficiencyType].indexOf(proficiencyName);
         this.proficiencies[proficiencyType].splice(index,1);
+        //emit remove event
+        this.removeProficiencyEvent.emit({'type':proficiencyType, 'name':proficiencyName});
         //additionally remove expertise with proficiencyName if it exists (can't have expertise in something you don't have proficiency in)
         if (this.hasExpertise(proficiencyType, proficiencyName)){
           console.log(this.removeExpertise(proficiencyType, proficiencyName));
@@ -107,6 +122,8 @@ export class ProficienciesService {
         //remove expertise
         index = this.expertises[expertiseType].indexOf(expertiseName);
         this.expertises[expertiseType].splice(index,1);
+        //emit remove event
+        this.removeExpertiseEvent.emit({'type':expertiseType, 'name':expertiseName});
         return `Expertise "${expertiseName}" removed`;
       }
       else{

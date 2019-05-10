@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { AbilityScoreArray } from '../ability-array';
@@ -17,7 +17,13 @@ export class AbilityScoresComponent implements OnInit {
   }
 
   updateScore(adjustedScore:string, control: FormControl) {
+    let oldModifier = this.abilityScoresService.modifiers[adjustedScore];
+    //update score
     this.abilityScoresService.updateScore(adjustedScore, control.value);
+    //emit event if modifier changed
+    if (oldModifier != this.abilityScoresService.modifiers[adjustedScore]){
+      this.abilityScoresService.onUpdateEvent.emit(adjustedScore);
+    }
   }
 
 }
