@@ -174,7 +174,7 @@ export class SkillsComponent implements OnInit {
   }
 
   calculateSkillModifier(skillName: string, abilityName: string) : number {
-    return this.abilityScoresService.modifiers[abilityName] + this.proficienciesService.calculateProficiencyBonus('skills', skillName);
+    return this.abilityScoresService.abilities[abilityName].modifier + this.proficienciesService.calculateProficiencyBonus('skills', skillName);
   }
 
   updateSkillModifiers(changedAbilityScore: string){

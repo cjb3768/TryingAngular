@@ -1,8 +1,15 @@
+export class AbilityProperties{
+  name: string;
+  printName: string;
+  score: number;
+  modifier: number;
+}
+
 export class AbilityScoreArray {
-  str: number;
-  dex: number;
-  con: number;
-  int: number;
-  wis: number;
-  cha: number;
+  str: AbilityProperties;
+  dex: AbilityProperties;
+  con: AbilityProperties;
+  int: AbilityProperties;
+  wis: AbilityProperties;
+  cha: AbilityProperties;
 }

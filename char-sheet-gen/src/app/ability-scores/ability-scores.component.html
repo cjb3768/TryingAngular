@@ -1,16 +1,14 @@
-<div [formGroup]="this.abilityScoresService.inputs">
-  Strength: <input type="number" formControlName="str" min=0 max=20 (input)="updateScore('str', this.abilityScoresService.inputs.get('str'))">
-  Dexterity: <input type="number" formControlName="dex" min=0 max=20 (input)="updateScore('dex', this.abilityScoresService.inputs.get('dex'))">
-  Constitution: <input type="number" formControlName="con" min=0 max=20 (input)="updateScore('con', this.abilityScoresService.inputs.get('con'))">
-  Intelligence: <input type="number" formControlName="int" min=0 max=20 (input)="updateScore('int', this.abilityScoresService.inputs.get('int'))">
-  Wisdom: <input type="number" formControlName="wis" min=0 max=20 (input)="updateScore('wis', this.abilityScoresService.inputs.get('wis'))">
-  Charisma: <input type="number" formControlName="cha" min=0 max=20 (input)="updateScore('cha', this.abilityScoresService.inputs.get('cha'))">
-</div>
-<div>
-  Strength Modifier = {{abilityScoresService.modifiers.str}}
-  Dexterity Modifier = {{abilityScoresService.modifiers.dex}}
-  Constitution Modifier = {{abilityScoresService.modifiers.con}}
-  Intelligence Modifier = {{abilityScoresService.modifiers.int}}
-  Wisdom Modifier = {{abilityScoresService.modifiers.wis}}
-  Charisma Modifier = {{abilityScoresService.modifiers.cha}}
-</div>
+<table [formGroup]="this.abilityScoresService.inputs">
+  <th>Ability Scores</th>
+  <tr *ngFor="let ability of this.abilityScoresService.abilities | keyvalue">
+    <table>
+      <th>{{ability.value.printName}}</th>
+      <tr>
+        <input type="number" formControlName="{{ability.value.name}}" min=0 max=20 (input)="updateScore(ability.value.name, this.abilityScoresService.inputs.get(ability.value.name))">
+      </tr>
+      <tr>
+        {{ability.value.modifier}}
+      </tr>
+    </table>
+  </tr>
+</table>
