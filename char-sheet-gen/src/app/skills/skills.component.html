@@ -1,13 +1,31 @@
 <h2>Skills</h2>
 
+<table>
+  <tr>
+    <th>Name (Abililty Score)</th>
+    <th>Modifier</th>
+    <th>Proficiency</th>
+    <th>Expertise</th>
+  </tr>
+  <tr *ngFor="let skill of skills | keyvalue">
+    <td>{{skill.value.printName}} ({{skill.value.ability}})</td>
+    <td>{{skill.value.modifier}}</td>
+    <td [formGroup]="this.proficiencyControls" class="prof">
+      <input type="checkbox" formControlName="{{skill.key}}" (change)="setProficiency(skill.key)">
+    </td>
+    <td [formGroup]="this.expertiseControls" class="exp">
+      <input type="checkbox" formControlName="{{skill.key}}" (change)="setExpertise(skill.key)">
+    </td>
+  </tr>
+</table>
+<!---
 <div *ngFor="let skill of skills | keyvalue">
   {{skill.value.printName}} ({{skill.value.ability}}): {{skill.value.modifier}},
   <label [formGroup]="this.proficiencyControls" class="prof">
-    <!---Proficiency: <input type="checkbox" formControlName="{{skill.key}}" (click)="proficiencyChange(proficiencyControls.get(skill.key), this.get(expertiseControls).get(skill.key), skill.key)">,--->
     Proficiency: <input type="checkbox" formControlName="{{skill.key}}" (change)="setProficiency(skill.key)">,
   </label>
   <label [formGroup]="this.expertiseControls" class="exp">
-    <!---Expertise: <input type="checkbox" formControlName="{{skill.key}}" (click)="expertiseChange(proficiencyControls[skill.key], expertiseControls[skill.key], skill.key)">--->
     Expertise: <input type="checkbox" formControlName="{{skill.key}}" (change)="setExpertise(skill.key)">
   </label>
 </div>
+--->

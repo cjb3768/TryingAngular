@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
-import { AbilityScoreArray } from './ability-array';
+import { AbilityProperties, AbilityScoreArray } from './ability-array';
 
 @Injectable({
   providedIn: 'root'
@@ -10,25 +10,27 @@ export class AbilityScoresService {
 
   onUpdateEvent: EventEmitter<any> = new EventEmitter(true);
 
+  private defStat = 12;
+
   //Members
-  scores: AbilityScoreArray = {
-    str: 12,
-    dex: 12,
-    con: 12,
-    int: 12,
-    wis: 12,
-    cha: 12
-  }
+  abilities: AbilityScoreArray = {
+    str: {name: 'str', printName: "Strength",     score: this.defStat, modifier: this.calculateModifier(this.defStat)},
+    dex: {name: 'dex', printName: "Dexterity",    score: this.defStat, modifier: this.calculateModifier(this.defStat)},
+    con: {name: 'con', printName: "Constitution", score: this.defStat, modifier: this.calculateModifier(this.defStat)},
+    int: {name: 'int', printName: "Intelligence", score: this.defStat, modifier: this.calculateModifier(this.defStat)},
+    wis: {name: 'wis', printName: "Wisdom",       score: this.defStat, modifier: this.calculateModifier(this.defStat)},
+    cha: {name: 'cha', printName: "Charisma",     score: this.defStat, modifier: this.calculateModifier(this.defStat)}
+  };
 
   inputs = new FormGroup({
-      str: new FormControl (this.scores.str),
-      dex: new FormControl (this.scores.dex),
-      con: new FormControl (this.scores.con),
-      int: new FormControl (this.scores.int),
-      wis: new FormControl (this.scores.wis),
-      cha: new FormControl (this.scores.cha),
+      str: new FormControl (this.abilities.str.score),
+      dex: new FormControl (this.abilities.dex.score),
+      con: new FormControl (this.abilities.con.score),
+      int: new FormControl (this.abilities.int.score),
+      wis: new FormControl (this.abilities.wis.score),
+      cha: new FormControl (this.abilities.cha.score),
   })
-
+/*
   modifiers: AbilityScoreArray = {
     str: this.calculateModifier(this.scores.str),
     dex: this.calculateModifier(this.scores.dex),
@@ -37,7 +39,7 @@ export class AbilityScoresService {
     wis: this.calculateModifier(this.scores.wis),
     cha: this.calculateModifier(this.scores.cha),
   }
-
+*/
   constructor() { }
 
   calculateModifier(abilityScore: number): number{
@@ -46,7 +48,7 @@ export class AbilityScoresService {
 
   updateScore(adjustedScore:string, value: number){
     //update scores and modifier
-    this.scores[adjustedScore] = value;
-    this.modifiers[adjustedScore] = this.calculateModifier(value);
+    this.abilities[adjustedScore].score = value;
+    this.abilities[adjustedScore].modifier = this.calculateModifier(value);
   }
 }
