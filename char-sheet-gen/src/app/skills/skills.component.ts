@@ -100,9 +100,6 @@ export class SkillsComponent implements OnInit {
             this.skills[proficiencyContext.name].modifier = this.calculateSkillModifier(proficiencyContext.name, this.skills[proficiencyContext.name].ability);
           }
         }
-        else{
-          console.log(`Encountered unexpected proficiency type "${proficiencyContext.type}"`);
-        }
       }
     );
 
@@ -117,9 +114,6 @@ export class SkillsComponent implements OnInit {
             //update modifier
             this.skills[expertiseContext.name].modifier = this.calculateSkillModifier(expertiseContext.name, this.skills[expertiseContext.name].ability);
           }
-        }
-        else{
-          console.log(`Encountered unexpected expertise type "${expertiseContext.type}"`);
         }
       }
     );
@@ -139,9 +133,6 @@ export class SkillsComponent implements OnInit {
 
           }
         }
-        else{
-          console.log(`Encountered unexpected proficiency type "${proficiencyContext.type}"`);
-        }
       }
     );
 
@@ -156,9 +147,6 @@ export class SkillsComponent implements OnInit {
             //update modifier
             this.skills[expertiseContext.name].modifier = this.calculateSkillModifier(expertiseContext.name, this.skills[expertiseContext.name].ability);
           }
-        }
-        else{
-          console.log(`Encountered unexpected expertise type "${expertiseContext.type}"`);
         }
       }
     );

@@ -1,0 +1,19 @@
+<h3>Saving Throws</h3>
+<table [formGroup]="this.savingThrowProficiencyControls">
+
+  <th>Proficient?</th>
+  <th>Ability Name</th>
+  <th>Throw Modifier</th>
+
+  <tr *ngFor="let ability of this.abilityScoresService.abilities | keyvalue">
+    <td>
+      <input type="checkbox" formControlName="{{ability.value.name}}" (change)="updateSavingThrowProficiency(ability.value.name)">
+    </td>
+    <td>
+      {{ability.value.printName}}
+    </td>
+    <td>
+      {{this.savingThrows[ability.value.name]}}
+    </td>
+  </tr>
+</table>
