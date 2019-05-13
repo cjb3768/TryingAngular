@@ -42,46 +42,15 @@ export class SavingThrowsComponent implements OnInit {
     //proficienciesService subscriptions
     proficienciesService.addProficiencyEvent.subscribe(
       (proficiencyContext) => {
-        /*
-        if (proficiencyContext.type == "skills"){
-          //verify that the skill in question exists
-          if (this.skills[proficiencyContext.name]){
-            console.log(`Updating interface to match added proficiency for "${proficiencyContext.name}"`);
-            //set value of matching proficiency checkbox
-            this.proficiencyControls.controls[proficiencyContext.name].setValue(true);
-            //enable matching expertise checkbox
-            this.expertiseControls.controls[proficiencyContext.name].enable();
-            //update modifier
-            this.skills[proficiencyContext.name].modifier = this.calculateSkillModifier(proficiencyContext.name, this.skills[proficiencyContext.name].ability);
-          }
-        }
-        else{
-          console.log(`Encountered unexpected proficiency type "${proficiencyContext.type}"`);
-        }
-        */
+        console.log(`Proficiency for "${proficiencyContext.name}" of type "${proficiencyContext.type}" added. Updating saving throw value.`);
+        this.updateSavingThrow(proficiencyContext.name);
       }
     );
 
     proficienciesService.removeProficiencyEvent.subscribe(
       (proficiencyContext) => {
-        /*
-        if (proficiencyContext.type == "skills"){
-          //verify that the skill in question exists
-          if (this.skills[proficiencyContext.name]){
-            console.log(`Updating interface to match removed proficiency for "${proficiencyContext.name}"`);
-            //set value of matching proficiency checkbox
-            this.proficiencyControls.controls[proficiencyContext.name].setValue(false);
-            //disable matching expertise checkbox
-            this.expertiseControls.controls[proficiencyContext.name].disable();
-            //update modifier
-            this.skills[proficiencyContext.name].modifier = this.calculateSkillModifier(proficiencyContext.name, this.skills[proficiencyContext.name].ability);
-
-          }
-        }
-        else{
-          console.log(`Encountered unexpected proficiency type "${proficiencyContext.type}"`);
-        }
-        */
+        console.log(`Proficiency for "${proficiencyContext.name}" of type "${proficiencyContext.type}" removed. Updating saving throw value.`);
+        this.updateSavingThrow(proficiencyContext.name);
       }
     );
   }
@@ -99,10 +68,10 @@ export class SavingThrowsComponent implements OnInit {
 
   updateSavingThrowProficiency(abilityName: string){
     if (this.savingThrowProficiencyControls.controls[abilityName].value){
-      console.log(this.proficienciesService.addProficiency("savingThrows", abilityName));
+      this.proficienciesService.addProficiency("savingThrows", abilityName);
     }
     else{
-      console.log(this.proficienciesService.removeProficiency("savingThrows", abilityName));
+      this.proficienciesService.removeProficiency("savingThrows", abilityName);
     }
   }
 }
