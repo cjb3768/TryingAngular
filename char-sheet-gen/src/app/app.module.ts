@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { AbilityScoresComponent } from './ability-scores/ability-scores.component';
 import { ProficienciesComponent } from './proficiencies/proficiencies.component';
 import { SkillsComponent } from './skills/skills.component';
+import { SavingThrowsComponent } from './saving-throws/saving-throws.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AbilityScoresComponent,
     ProficienciesComponent,
-    SkillsComponent
+    SkillsComponent,
+    SavingThrowsComponent
   ],
   imports: [
     BrowserModule,
