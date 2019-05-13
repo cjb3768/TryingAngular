@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
 import { AbilityScoresService } from '../ability-scores.service';
 import { ProficienciesService } from '../proficiencies.service';
@@ -10,12 +11,31 @@ import { ProficienciesService } from '../proficiencies.service';
 })
 export class SavingThrowsComponent implements OnInit {
 
+  savingThrows = {
+    str: this.calculateSavingThrow("str"),
+    dex: this.calculateSavingThrow("dex"),
+    con: this.calculateSavingThrow("con"),
+    int: this.calculateSavingThrow("int"),
+    wis: this.calculateSavingThrow("wis"),
+    cha: this.calculateSavingThrow("cha")
+  }
+
+  //form controls
+  savingThrowProficiencyControls = new FormGroup ({
+    str: new FormControl(this.proficienciesService.hasProficiency("savingThrows", "str")),
+    dex: new FormControl(this.proficienciesService.hasProficiency("savingThrows", "dex")),
+    con: new FormControl(this.proficienciesService.hasProficiency("savingThrows", "con")),
+    int: new FormControl(this.proficienciesService.hasProficiency("savingThrows", "int")),
+    wis: new FormControl(this.proficienciesService.hasProficiency("savingThrows", "wis")),
+    cha: new FormControl(this.proficienciesService.hasProficiency("savingThrows", "cha"))
+  });
+
   constructor(private abilityScoresService: AbilityScoresService, private proficienciesService: ProficienciesService) {
     //abilityScoresService subscriptions
     abilityScoresService.onUpdateEvent.subscribe(
       (adjustedScore) => {
-        //console.log(`Modifier for "${adjustedScore}" changed. Updating relevant skills.`);
-        //this.updateSkillModifiers(adjustedScore);
+        console.log(`Modifier for "${adjustedScore}" changed. Updating saving throw.`);
+        this.updateSavingThrow(adjustedScore);
       }
     );
 
@@ -69,4 +89,11 @@ export class SavingThrowsComponent implements OnInit {
   ngOnInit() {
   }
 
+  calculateSavingThrow(abilityName: string) : number {
+    return this.abilityScoresService.abilities[abilityName].modifier + this.proficienciesService.calculateProficiencyBonus("savingThrows", abilityName);
+  }
+
+  updateSavingThrow(abilityName: string){
+    this.savingThrows[abilityName] = this.calculateSavingThrow(abilityName);
+  }
 }

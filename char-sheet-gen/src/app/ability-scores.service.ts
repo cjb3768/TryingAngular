@@ -28,7 +28,7 @@ export class AbilityScoresService {
       con: new FormControl (this.abilities.con.score),
       int: new FormControl (this.abilities.int.score),
       wis: new FormControl (this.abilities.wis.score),
-      cha: new FormControl (this.abilities.cha.score),
+      cha: new FormControl (this.abilities.cha.score)
   })
 /*
   modifiers: AbilityScoreArray = {
