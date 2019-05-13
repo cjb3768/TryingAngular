@@ -7,7 +7,7 @@
 
   <tr *ngFor="let ability of this.abilityScoresService.abilities | keyvalue">
     <td>
-      <input type="checkbox" formControlName="{{ability.value.name}}">
+      <input type="checkbox" formControlName="{{ability.value.name}}" (change)="updateSavingThrowProficiency(ability.value.name)">
     </td>
     <td>
       {{ability.value.printName}}

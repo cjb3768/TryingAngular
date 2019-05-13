@@ -96,4 +96,13 @@ export class SavingThrowsComponent implements OnInit {
   updateSavingThrow(abilityName: string){
     this.savingThrows[abilityName] = this.calculateSavingThrow(abilityName);
   }
+
+  updateSavingThrowProficiency(abilityName: string){
+    if (this.savingThrowProficiencyControls.controls[abilityName].value){
+      console.log(this.proficienciesService.addProficiency("savingThrows", abilityName));
+    }
+    else{
+      console.log(this.proficienciesService.removeProficiency("savingThrows", abilityName));
+    }
+  }
 }
